@@ -160,29 +160,40 @@ you start a new interactive plotman session, this log is empty.
 
 ## 局限性和问题
 
-## Limitations and Issues
-
+该工具仅在linux上进行了测试.
 The system is tested on Linux only.  Plotman should be generalizable to other
 platforms, but this is not done yet.  Some of the issues around making calls
 out to command line programs (e.g., running `df` over `ssh` to obtain the free
 space on the remote archive directories) are very linux-y.
 
+交互模式使用了 "cures" 函数库，但是效果并不好。不能返回按键信息，屏幕无法调整大小，并且终端的最小尺寸也是非常的大。
 The interactive mode uses the `curses` library ... poorly.  Keypresses are
 not received, screen resizing does not work, and the minimum terminal size
 is pretty big.
 
+Plotman假设所有的P图文件都是K32；
 Plotman assumes all plots are k32s.  Again, this is just an unimplemented
 generalization.
 
 Many features are inconsistently supported between either the "interactive"
 mode or the command line mode.
 
+还存在太多的bug和待处理事项；
 There are many bugs and TODOs.
+
+Plotman将会不断地在计算机的默认保存目录下检查"plotman.yaml"文件，需要生成默认的“plotman.yaml”，可以运行：
+```shell
+> plotman config generate
+```
 
 Plotman will always look for the `plotman.yaml` file within your computer at an OS-based
 default location. To generate a default `plotman.yaml`, run:
 ```shell
 > plotman config generate
+```
+显示当前默认位置下你的 `plotman.yaml`文件和检查 `plotman.yaml`是否存在，可以运行：
+```shell
+> plotman config path
 ```
 
 To display the current location of your `plotman.yaml` file and check if it exists, run:
