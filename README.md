@@ -1,6 +1,7 @@
 # `plotman`: Chia自动P盘管理工具
 这是用于操作Chia P图参数的管理工具,这个工具是在运行于P盘机上。具有以下功能：
-This is a tool for managing [Chia](https://github.com/Chia-Network/chia-blockchain)
+
+- This is a tool for managing [Chia](https://github.com/Chia-Network/chia-blockchain)
 plotting operations.  The tool runs on the plotting machine and provides
 the following functionality:
 
