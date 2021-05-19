@@ -42,7 +42,8 @@ the `archive` directories.
 directory.  This allows analysis of progress (plot phase) as well as timing
 (e.g. for analyzing performance).
 
-##功能性
+
+## 功能性
 ## Functionality
 
 Plotman是无状态工具，该工具不会保留P图任务已经启动的内部记录，而是依靠P图任务进程表，打开文件和日志文件来获取“正在发生的事情”，这意味着即使不同的登录会话中也可以停止和启动工具，而不会造成P图数据的信息丢失。
