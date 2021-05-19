@@ -1,43 +1,51 @@
 # `plotman`: Chia自动P盘管理工具
 这是用于操作Chia P图参数的管理工具,这个工具是在运行于P盘机上。具有以下功能：
 
-- This is a tool for managing [Chia](https://github.com/Chia-Network/chia-blockchain)
+This is a tool for managing [Chia](https://github.com/Chia-Network/chia-blockchain)
 plotting operations.  The tool runs on the plotting machine and provides
 the following functionality:
 
+- 自动生成新的P图任务，可能会在多个临时目录里重叠，同时受全局速率和每个临时目录限制；
 - Automatic spawning of new plotting jobs, possibly overlapping ("staggered")
   on multiple temp directories, rate-limited globally and by per-temp-dir
 limits.
-
+- 同步新生成的P图文件到远程主机上（农场/收割机），可以称之为“归档”;
 - Rsync'ing of newly generated plots to a remote host (a farmer/harvester),
   called "archiving".
-
+- 监视正在进行中的P图任务和归档任务、进度、使用资源状态、临时文件等；
 - Monitoring of ongoing plotting and archiving jobs, progress, resources used,
   temp files, etc.
-
+- 控制正在进行的绘图任务（挂起、恢复以及终止和清除临时文件）；
 - Control of ongoing plotting jobs (suspend, resume, plus kill and clean up
   temp files).
-
+- 该工具支持交互式实时仪表模式和命令行模式；
 - Both an interactive live dashboard mode as well as command line mode tools.
-
+- 分析完成任务的性能统计信息，以及汇总各种P图参数、临时目录类型；
 - (very alpha) Analyzing performance statistics of past jobs, to aggregate on
   various plotting parameters or temp dir type.
-
+  
+Plotman设计使用以下配置：
 Plotman is designed for the following configuration:
 
+- 一台P盘设备应该有一组"tmp"目录、一个"tmp2"目录和一组"dst"目录去完成P图任务，其中：“dst"目录是用于P图时的临时缓存；
 - A plotting machine with an array of `tmp` dirs, a single `tmp2` dir, and an
   array of `dst` dirs to which the plot jobs plot.  The `dst` dirs serve as a
 temporary buffer space for generated plots.
 
+- 一台拥有大量机械硬盘的充当农场的设备，可以通过rsyncd模块进行访问，并完成P图文件的数据填充，这些称之为“归档”目录；
 - A farming machine with a large number of drives, made accessible via an
   `rsyncd` module, and to be entirely populated with plots.  These are known as
 the `archive` directories.
 
+在配置目录中P图任务使用STDOUT/STDERR重定向到日志文件，通过分析日志文件就可以对进程（P图阶段）、时序（性能分析）；
 - Plot jobs are run with STDOUT/STDERR redirected to a log file in a configured
 directory.  This allows analysis of progress (plot phase) as well as timing
 (e.g. for analyzing performance).
 
+##功能性
 ## Functionality
+
+Plotman是无状态工具，该工具不会保留P图任务已经启动的内部记录，而是依靠P图任务进程表，打开文件和日志文件来获取“正在发生的事情”，这意味着即使不同的登录会话中也可以停止和启动工具，而不会造成P图数据的信息丢失。
 
 Plotman tools are stateless.  Rather than keep an internal record of what jobs
 have been started, Plotman relies on the process tables, open files, and
@@ -69,6 +77,7 @@ archive job.  However, the decoupling provided by using `dst` drives as a
 buffer means that should the farmer/harvester or the network become
 unavailable, plotting continues uninterrupted.
 
+##屏幕截图概述
 ## Screenshot Overview
 
 ```
@@ -106,6 +115,7 @@ Log:
 01-02 18:33:53 Starting archive: rsync --bwlimit=100000 --remove-source-files -P /home/chia/chia/plots/004/plot-k32-202
 01-02 18:52:40 Starting archive: rsync --bwlimit=100000 --remove-source-files -P /home/chia/chia/plots/000/plot-k32-202
 ```
+屏幕截图显示了Plotman的一些主要功能
 
 The screenshot shows some of the main features of Plotman.
 
@@ -147,6 +157,8 @@ Finally, the last section shows a log of actions performed -- namely, plot and
 archive jobs initiated.  This is the one part of the interactive tool which is
 stateful.  There is no permanent record of these executed command lines, so if
 you start a new interactive plotman session, this log is empty.
+
+## 局限性和问题
 
 ## Limitations and Issues
 
