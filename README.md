@@ -1,4 +1,4 @@
-# `plotman`: Chia自动P盘管理工具
+ `plotman`: Chia自动P盘管理工具
 这是用于操作Chia P图参数的管理工具,这个工具是在运行于P盘机上。具有以下功能：
 
 This is a tool for managing [Chia](https://github.com/Chia-Network/chia-blockchain)
@@ -44,7 +44,6 @@ directory.  This allows analysis of progress (plot phase) as well as timing
 
 
 ## 功能性
-## Functionality
 
 Plotman是无状态工具，该工具不会保留P图任务已经启动的内部记录，而是依靠P图任务进程表，打开文件和日志文件来获取“正在发生的事情”，这意味着即使不同的登录会话中也可以停止和启动工具，而不会造成P图数据的信息丢失。
 
@@ -78,8 +77,8 @@ archive job.  However, the decoupling provided by using `dst` drives as a
 buffer means that should the farmer/harvester or the network become
 unavailable, plotting continues uninterrupted.
 
-##屏幕截图概述
-## Screenshot Overview
+## 屏幕截图概述
+
 
 ```
 Plotman 19:01:06 (refresh 9s/20s)  |  Plotting: stagger (1623s/1800s) Archival: active pid 1599918
@@ -193,7 +192,7 @@ To display the current location of your `plotman.yaml` file and check if it exis
 
 ([See also](https://github.com/ericaltendorf/plotman/pull/61#issuecomment-812967363)).
 
-## Installation
+## 安装
 
 Installation for Linux and macOS:
 
